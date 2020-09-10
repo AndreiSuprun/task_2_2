@@ -12,7 +12,7 @@ public class Punctuation implements TextPart{
 
     @Override
     public List<TextPart> getParts() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
