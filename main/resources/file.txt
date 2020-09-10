@@ -1,0 +1,5 @@
+Before you create objects in Java, you need to define a class. A class is a blueprint for the object.
+We can think of the class as a sketch of a house. It contains all the details about the floors, doors, windows, etc. Based on these descriptions we build the house. House is the object.
+Since many houses can be made from the same description, we can create many objects from a class?
+
+
