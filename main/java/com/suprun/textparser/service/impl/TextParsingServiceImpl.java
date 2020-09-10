@@ -14,6 +14,9 @@ import java.util.List;
 public class TextParsingServiceImpl implements TextParsingService {
 
     private static final String IGNORE_CASE_SELECTOR = "(?i)";
+    private static final String QUESTION_SIGN = "?";
+    private static final String WHITE_SPACE_SELECTOR = "\\s+";
+    private static final String EMPTY_STRING = "";
 
     @Override
     public TextPart receiveParsedTextFromFile() throws ServiceException {
@@ -33,7 +36,7 @@ public class TextParsingServiceImpl implements TextParsingService {
         if (textPart ==null){
             throw new ServiceException("Invalid parameter");
         }
-        Comparator<TextPart> sentenceComparator = Comparator.comparingInt(c -> c.toString().split("\\s+").length);
+        Comparator<TextPart> sentenceComparator = Comparator.comparingInt(c -> c.toString().split(WHITE_SPACE_SELECTOR).length);
         for (TextPart paragraph : textPart.getParts()) {
             paragraph.getParts().sort(sentenceComparator);
         }
@@ -48,7 +51,7 @@ public class TextParsingServiceImpl implements TextParsingService {
         for (TextPart paragraph : textPart.getParts()) {
             paragraph.getParts().stream().filter(s -> {
                 List<TextPart> list = s.getParts();
-                return list.get(list.size() - 1).toString().contains("?");
+                return list.get(list.size() - 1).toString().contains(QUESTION_SIGN);
             }).flatMap(s -> s.getParts().stream()).filter(s -> s.toString().length() == wordLength).distinct().forEach(System.out::println);
         }
     }
@@ -81,7 +84,7 @@ public class TextParsingServiceImpl implements TextParsingService {
                 for (TextPart word : sentence.getParts()) {
                     if (word.toString().length() > 1) {
                         String letter = String.valueOf(word.toString().charAt(0));
-                        String newWord = word.toString().replaceAll(IGNORE_CASE_SELECTOR+letter, "");
+                        String newWord = word.toString().replaceAll(IGNORE_CASE_SELECTOR+letter, EMPTY_STRING);
                         word.setPart(new Word(letter.concat(newWord)));
                     }
                 }
