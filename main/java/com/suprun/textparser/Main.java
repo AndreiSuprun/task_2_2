@@ -14,7 +14,6 @@ public class Main {
         try {
             textPart = textParsingService.receiveParsedTextFromFile();
             System.out.println(textPart.toString());
-            System.out.println(textPart.getParts().toString());
             textParsingService.printWordsSpecifiedLength(textPart, 2);
             textPart = textParsingService.exchangeFirstAndLastWords(textPart);
             System.out.println(textPart.toString());
